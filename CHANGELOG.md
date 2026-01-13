@@ -2,8 +2,6 @@
 
 ### TODO
 
-* update Maven dependencies from 3.9.4 to 3.9.6
-* update Maven resolver 1.9.14 to 1.9.18
 * dump compat dependency when Maven's (Dwfault)ProjectBuilderRequest removed ArtifactRepository from it's ProjectBuilderingRequest.
 * support for Maven 4
   *  settings can define repositories outside of profiles
@@ -12,7 +10,9 @@
 ### 4.0.1 (pending)
 
 * introduced Restriction classes to make "denyAll" configurable for Maven Config.
-* update parent
+* update parent to 1.7.0
+* update maven 3.9.6 to 3.9.12
+* update maven resolver 1.9.18 to 1.9.25; this fixes the extension to work with Maven 3.9.12
 
 
 ### 4.0.0 (2023-08-11)

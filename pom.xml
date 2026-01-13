@@ -4,7 +4,7 @@
   <parent>
     <groupId>de.schmizzolin.maven.poms</groupId>
     <artifactId>parent</artifactId>
-    <version>1.6.4-SNAPSHOT</version>
+    <version>1.7.0-SNAPSHOT</version>
     <relativePath />
   </parent>
 
@@ -17,8 +17,8 @@
   <version>4.0.1-SNAPSHOT</version>
 
   <properties>
-    <mavenVersion>3.9.6</mavenVersion>
-    <resolverVersion>1.9.18</resolverVersion>
+    <mavenVersion>3.9.12</mavenVersion>
+    <resolverVersion>1.9.25</resolverVersion>
   </properties>
 
   <developers>
