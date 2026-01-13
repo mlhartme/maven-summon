@@ -10,9 +10,11 @@
 ### 4.0.1 (pending)
 
 * introduced Restriction classes to make "denyAll" configurable for Maven Config.
-* update parent to 1.7.0
+* update parent 1.6.2 to 1.7.0
 * update maven 3.9.6 to 3.9.12
 * update maven resolver 1.9.18 to 1.9.25; this fixes the extension to work with Maven 3.9.12
+* update plexus-classworlds 2.7.0 to 2.9.0
+* update sisu plexus 0.3.5 to 0.9.0.M4
 
 
 ### 4.0.0 (2023-08-11)
