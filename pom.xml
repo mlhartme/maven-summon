@@ -14,7 +14,7 @@
 
   <groupId>net.oneandone.maven.summon</groupId>
   <artifactId>parent</artifactId>
-  <version>4.0.2-SNAPSHOT</version>
+  <version>4.0.1-SNAPSHOT</version>
 
   <properties>
     <mavenVersion>3.9.12</mavenVersion>
