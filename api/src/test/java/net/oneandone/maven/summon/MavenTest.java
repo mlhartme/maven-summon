@@ -50,8 +50,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-// TODO: currently need to be build inside M&m with the standard repo config
-
 public class MavenTest {
     // run this with -Xmx32m to check for memory leaks
     public static void main(String[] args) throws IOException, ProjectBuildingException {
@@ -68,9 +66,8 @@ public class MavenTest {
     private static final Artifact WAR = new DefaultArtifact("wicket:wicket-quickstart:war:x");
     private static final Artifact NOT_FOUND = new DefaultArtifact("no.such.group:foo:x");
 
-    // TODO: tests something publically available ...
-    private static final String MAVEN_PARENT_VERSION_PREFIX = "1.1";
-    private static final Artifact MAVEN_PARENT = new DefaultArtifact("dev.mam.mamido:drummr:pom:" +
+    private static final String MAVEN_PARENT_VERSION_PREFIX = "4.1.0";
+    private static final Artifact MAVEN_PARENT = new DefaultArtifact("org.apache.maven:apache-maven:pom:" +
             MAVEN_PARENT_VERSION_PREFIX + "-SNAPSHOT");
 
     private Maven maven;
@@ -92,7 +89,10 @@ public class MavenTest {
     }
 
     private Config newConfig() {
-        return new Config().localRepository(repo);
+        return new Config()
+                .localRepository(repo)
+                .userSettings(new File(project, "src/test/settings.xml"));
+
     }
 
     @After
@@ -102,13 +102,14 @@ public class MavenTest {
 
     //-- pom repositories
 
-    private static final String CENTRAL = "https://repo.mam.dev/artifactory/portal-central/"; // TODO
+    private static final String APACHE = "https://repository.apache.org/snapshots/";
+    private static final String CENTRAL = "https://repo.maven.apache.org/maven2";
 
 
     @Test
     public void pluginRepositories() throws ProjectBuildingException {
         MavenProject pom = maven.loadPom(file("src/test/with-plugin-repository.pom"));
-        assertEquals(List.of(CENTRAL), pom.getRemotePluginRepositories().stream().map(RemoteRepository::getUrl).toList());
+        assertEquals(List.of(CENTRAL, APACHE), pom.getRemotePluginRepositories().stream().map(RemoteRepository::getUrl).toList());
     }
 
     @Test
@@ -116,12 +117,12 @@ public class MavenTest {
         File file = file("src/test/multi-with-plugin-repository/child/pom.xml");
         String extra = "https://some.extra.repo/";
         MavenProject pom = maven.loadPom(file);
-        assertEquals(List.of(CENTRAL), pom.getRemotePluginRepositories().stream().map(RemoteRepository::getUrl).toList());
+        assertEquals(List.of(CENTRAL, APACHE), pom.getRemotePluginRepositories().stream().map(RemoteRepository::getUrl).toList());
 
         Config config = newConfig();
         config.allowPomRepositories().allow(extra);
         pom = config.build().loadPom(file);
-        assertEquals(List.of(extra, CENTRAL), pom.getRemotePluginRepositories().stream().map(RemoteRepository::getUrl).toList());
+        assertEquals(List.of(extra, CENTRAL, APACHE), pom.getRemotePluginRepositories().stream().map(RemoteRepository::getUrl).toList());
     }
 
     //--
