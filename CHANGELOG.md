@@ -3,18 +3,19 @@
 ### TODO
 
 * dump compat dependency when Maven's (Dwfault)ProjectBuilderRequest removed ArtifactRepository from it's ProjectBuilderingRequest.
+* fix plexus-component-metadata plugin used to build extension module
 * support for Maven 4
   *  settings can define repositories outside of profiles
 
 
-### 4.0.1 (pending)
+### 4.0.1 (2026-01-14)
 
-* introduced Restriction classes to make "denyAll" configurable for Maven Config.
+* update maven resolver 1.9.18 to 1.9.25; this fixes the extension to work with Maven 3.9.12
 * update parent 1.6.2 to 1.7.0
 * update maven 3.9.6 to 3.9.12
-* update maven resolver 1.9.18 to 1.9.25; this fixes the extension to work with Maven 3.9.12
 * update plexus-classworlds 2.7.0 to 2.9.0
 * update sisu plexus 0.3.5 to 0.9.0.M4
+* introduced Restriction classes to make "denyAll" configurable for Maven Config.
 
 
 ### 4.0.0 (2023-08-11)
