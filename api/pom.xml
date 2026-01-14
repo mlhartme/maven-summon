@@ -4,21 +4,21 @@
   <parent>
     <groupId>net.oneandone.maven.summon</groupId>
     <artifactId>parent</artifactId>
-    <version>4.0.1-SNAPSHOT</version>
+    <version>4.0.1</version>
   </parent>
 
   <name>Maven Summon API</name>
 
   <groupId>net.oneandone.maven.summon</groupId>
   <artifactId>api</artifactId>
-  <version>4.0.1-SNAPSHOT</version>
+  <version>4.0.1</version>
   <packaging>jar</packaging>
 
   <dependencies>
     <dependency>
       <groupId>net.oneandone.maven.summon</groupId>
       <artifactId>extension</artifactId>
-      <version>4.0.1-SNAPSHOT</version>
+      <version>4.0.1</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
