@@ -7,11 +7,13 @@
     <version>4.0.1-SNAPSHOT</version>
   </parent>
 
+  <name>Maven Summon Extension</name>
+  <description>A Maven extensions to close code execution vulnerabilities when loading poms.</description>
+
   <groupId>net.oneandone.maven.summon</groupId>
   <artifactId>extension</artifactId>
   <version>4.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <description>A Maven extensions to close code execution vulnerabilities when loading poms.</description>
 
   <dependencies>
     <dependency>

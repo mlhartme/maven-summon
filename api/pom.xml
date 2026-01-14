@@ -7,6 +7,8 @@
     <version>4.0.1-SNAPSHOT</version>
   </parent>
 
+  <name>Maven Summon API</name>
+
   <groupId>net.oneandone.maven.summon</groupId>
   <artifactId>api</artifactId>
   <version>4.0.1-SNAPSHOT</version>
