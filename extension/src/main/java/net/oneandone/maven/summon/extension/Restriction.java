@@ -52,4 +52,8 @@ public class Restriction {
             }
         }
     }
+
+    public String toString() {
+        return keys == null ? "[]" : keys.toString();
+    }
 }

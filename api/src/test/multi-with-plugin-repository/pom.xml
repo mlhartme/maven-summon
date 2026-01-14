@@ -8,7 +8,7 @@
   <version>1.42</version>
 
   <packaging>pom</packaging>
-  
+
   <pluginRepositories>
     <pluginRepository>
       <id>extra</id>
