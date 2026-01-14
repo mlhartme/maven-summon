@@ -14,7 +14,7 @@
 
   <groupId>net.oneandone.maven.summon</groupId>
   <artifactId>parent</artifactId>
-  <version>4.0.1-SNAPSHOT</version>
+  <version>4.0.1</version>
 
   <properties>
     <mavenVersion>3.9.12</mavenVersion>
@@ -40,7 +40,7 @@
     <connection>scm:git:https://github.com/mlhartme/maven-summon.git</connection>
     <developerConnection>scm:git:https://github.com/mlhartme/maven-summon.git</developerConnection>
     <url>https://github.com/mlhartme/maven-summon</url>
-    <tag>HEAD</tag>
+    <tag>parent-4.0.1</tag>
   </scm>
 
   <modules>
