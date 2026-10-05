@@ -21,10 +21,12 @@ import org.apache.maven.model.Repository;
 import org.apache.maven.project.DefaultProjectBuildingHelper;
 import org.apache.maven.project.ProjectBuildingHelper;
 import org.apache.maven.project.ProjectBuildingRequest;
-import org.codehaus.plexus.component.annotations.Component;
+import org.eclipse.sisu.Typed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +41,9 @@ import java.util.List;
  * distinguished when deploying, and they share the same local repository, so it's likely possible
  * to sneak plugin artifacts in by first resolving a normal artifact.
  */
-@Component(role = ProjectBuildingHelper.class)
+@Named("default")
+@Singleton
+@Typed(ProjectBuildingHelper.class)
 public class PomRepositoryBlocker extends DefaultProjectBuildingHelper {
     private static final Logger LOGGER = LoggerFactory.getLogger(PomRepositoryBlocker.class);
 

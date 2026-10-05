@@ -22,11 +22,13 @@ import org.apache.maven.extension.internal.CoreExports;
 import org.apache.maven.model.Plugin;
 import org.codehaus.plexus.PlexusContainer;
 import org.codehaus.plexus.classworlds.realm.ClassRealm;
-import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.logging.Logger;
+import org.eclipse.sisu.Typed;
 import org.eclipse.aether.artifact.Artifact;
 
 import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
 import java.util.Collections;
 import java.util.List;
 
@@ -50,7 +52,9 @@ import java.util.List;
  * However, attackers could use this provide their own version and make it available by configuring a plugin repository.
  * Use PomRepositoryBlocker is mitigate this.
  */
-@Component(role = ClassRealmManager.class)
+@Named("default")
+@Singleton
+@Typed(ClassRealmManager.class)
 public class ExtensionBlocker extends DefaultClassRealmManager {
     private final Logger logger;
     private final Restriction allowGroupArtifacts;
