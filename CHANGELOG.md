@@ -15,9 +15,10 @@
   * replaced maven-resolver-transport-http to maven-resolver-transport-apache
   * update plexus-classworlds 2.9.0 to 2.12.1
   * update plexus-component-annotations 2.1.0 to 2.2.0
-  * replace plexus-component-metadata with sisu-maven-plugin
 
-* update junit 4 to 5
+* other changes
+  * update junit 4 to 5
+  * replace plexus-component-metadata plugin with sisu-maven-plugin
 
 
 ### 4.0.1 (2026-01-14)
