@@ -27,9 +27,9 @@ import org.codehaus.plexus.classworlds.realm.ClassRealm;
 import org.eclipse.aether.RepositoryException;
 import org.eclipse.aether.artifact.DefaultArtifact;
 import org.eclipse.aether.repository.RemoteRepository;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.eclipse.aether.artifact.Artifact;
 import org.eclipse.aether.resolution.ArtifactResolutionException;
 import org.eclipse.aether.resolution.VersionRangeResolutionException;
@@ -45,10 +45,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MavenTest {
     // run this with -Xmx32m to check for memory leaks
@@ -78,7 +79,7 @@ public class MavenTest {
         return new File(project, path);
     }
 
-    @Before
+    @BeforeEach
     public void before() throws IOException {
         project = new File(".").getAbsoluteFile(); // TODO - multi module builds ...
         repo = new File(project, "target/repo");
@@ -95,7 +96,7 @@ public class MavenTest {
 
     }
 
-    @After
+    @AfterEach
     public void after() {
         maven.close();
     }
@@ -137,14 +138,14 @@ public class MavenTest {
         maven.resolve(MAVEN_PARENT);
     }
 
-    @Test(expected = ArtifactResolutionException.class)
+    @Test
     public void resolveNotFound() throws Exception {
-        maven.resolve(NOT_FOUND);
+        assertThrows(ArtifactResolutionException.class, () -> maven.resolve(NOT_FOUND));
     }
 
-    @Test(expected = ArtifactResolutionException.class)
+    @Test
     public void resolveVersionNotFound() throws Exception {
-        maven.resolve(JAR.setVersion("0.8.15"));
+        assertThrows(ArtifactResolutionException.class, () -> maven.resolve(JAR.setVersion("0.8.15")));
     }
 
     //--
@@ -173,10 +174,10 @@ public class MavenTest {
 
         pom = maven.loadPom(pomFile);
         assertEquals("with-profile", pom.getArtifactId());
-        assertFalse("contains execution from profile", executions(pom.getModel()).keySet().contains(myExec));
+        assertFalse(executions(pom.getModel()).keySet().contains(myExec), "contains execution from profile");
 
         pom = maven.loadPom(pomFile, true, null, List.of("with-surefire"));
-        assertTrue("contains execution from profile", executions(pom.getModel()).keySet().contains(myExec));
+        assertTrue(executions(pom.getModel()).keySet().contains(myExec), "contains execution from profile");
     }
 
     @Test
@@ -193,13 +194,13 @@ public class MavenTest {
         assertFalse(marker.exists());
         pom = maven.loadPom(pomFile);
         assertEquals("with-activation", pom.getArtifactId());
-        assertFalse("contains execution from profile", executions(pom.getModel()).keySet().contains(myExec));
+        assertFalse(executions(pom.getModel()).keySet().contains(myExec), "contains execution from profile");
 
         Files.writeString(marker.toPath(), "touch");
         assertTrue(marker.exists());
         pom = maven.loadPom(pomFile);
         assertEquals("with-activation", pom.getArtifactId());
-        assertTrue("contains execution from profile", executions(pom.getModel()).keySet().contains(myExec));
+        assertTrue(executions(pom.getModel()).keySet().contains(myExec), "contains execution from profile");
     }
 
     private void wipe(File dir) {
@@ -256,7 +257,7 @@ public class MavenTest {
         String version;
 
         version = maven.latestVersion(MAVEN_PARENT);
-        assertTrue(version, version.startsWith(MAVEN_PARENT_VERSION_PREFIX));
+        assertTrue(version.startsWith(MAVEN_PARENT_VERSION_PREFIX), version);
         assertTrue(maven.resolve(MAVEN_PARENT.setVersion(version)).isFile());
     }
 
@@ -268,7 +269,7 @@ public class MavenTest {
 
         latest = maven.latestVersion(MAVEN_PARENT);
         assertNotNull(latest);
-        assertTrue(latest, latest.startsWith(MAVEN_PARENT_VERSION_PREFIX));
+        assertTrue(latest.startsWith(MAVEN_PARENT_VERSION_PREFIX), latest);
         artifact = MAVEN_PARENT.setVersion(latest);
         file = maven.resolve(artifact);
         assertTrue(file.isFile());
@@ -278,9 +279,9 @@ public class MavenTest {
         //   resolver.loadPom(artifact);
     }
 
-    @Test(expected = VersionRangeResolutionException.class)
+    @Test
     public void latestVersionNotFound() throws Exception {
-        maven.latestVersion(NOT_FOUND);
+        assertThrows(VersionRangeResolutionException.class, () -> maven.latestVersion(NOT_FOUND));
     }
 
     @Test
@@ -289,8 +290,8 @@ public class MavenTest {
         String str;
 
         current = maven.nextVersion(WAR.setVersion("1.2.6"));
-        assertTrue(current, current.startsWith("1.2.7"));
-        assertFalse(current, current.endsWith("-SNAPSHOT"));
+        assertTrue(current.startsWith("1.2.7"), current);
+        assertFalse(current.endsWith("-SNAPSHOT"), current);
         str = maven.nextVersion(WAR.setVersion(current));
         assertEquals(current, str);
     }
@@ -300,7 +301,7 @@ public class MavenTest {
         String str;
 
         str = maven.nextVersion(MAVEN_PARENT);
-        assertTrue(str, str.startsWith(MAVEN_PARENT_VERSION_PREFIX));
+        assertTrue(str.startsWith(MAVEN_PARENT_VERSION_PREFIX), str);
         assertEquals(str, maven.nextVersion(MAVEN_PARENT.setVersion(str)));
     }
 
@@ -310,9 +311,9 @@ public class MavenTest {
         String str;
 
         str = maven.nextVersion(MAVEN_PARENT.setVersion(snapshot));
-        assertFalse(str, snapshot.equals(str));
+        assertFalse(snapshot.equals(str), str);
         assertEquals(str, maven.nextVersion(MAVEN_PARENT.setVersion(str)));
-        assertTrue(str, str.startsWith("3.0.0-"));
+        assertTrue(str.startsWith("3.0.0-"), str);
     }
 
     @Test
@@ -417,11 +418,9 @@ public class MavenTest {
 
     @Test
     public void multiNoRelativeModule() {
-        try {
-            maven.loadAllPoms(true, file("src/test/multi-no-relative/pom.xml").getAbsoluteFile(), false, null, null);
-        } catch (ProjectBuildingException e) {
-            assertTrue(e.getMessage(), e.getMessage().contains("multi:parent:pom:1.42"));
-            assertTrue(e.getMessage(), e.getMessage().contains("points at no local POM"));
-        }
+        ProjectBuildingException exception = assertThrows(ProjectBuildingException.class,
+                () -> maven.loadAllPoms(true, file("src/test/multi-no-relative/pom.xml").getAbsoluteFile(), false, null, null));
+        assertTrue(exception.getMessage().contains("multi:parent:pom:1.42"));
+        assertTrue(exception.getMessage().contains("points at no local POM"));
     }
 }

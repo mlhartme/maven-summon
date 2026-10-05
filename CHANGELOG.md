@@ -17,6 +17,7 @@
   * update plexus-classworlds 2.9.0 to 2.12.1
   * update plexus-component-annotations 2.1.0 to 2.2.0
 
+* update junit 4 to 5
 
 
 ### 4.0.1 (2026-01-14)
