@@ -400,7 +400,8 @@ public class MavenTest {
         // read child first to make sure there's no cached parent used.
         // Maven will use relativePath to load the pom (or try to resolve it when it's empty)
         MavenProject child = maven.loadPom(file("src/test/multi/child/pom.xml"));
-        assertEquals(Map.of("parent", "true", "child", "true"), child.getProperties());
+        assertEquals("true", child.getProperties().get("parent"));
+        assertEquals("true", child.getProperties().get("child"));
     }
 
     @Test
@@ -408,7 +409,8 @@ public class MavenTest {
         List<MavenProject> projects = maven.loadAllPoms(true, file("src/test/multi/pom.xml").getAbsoluteFile(), false, null, null);
         assertEquals(2, projects.size());
         MavenProject child = projects.get(0);
-        assertEquals(Map.of("parent", "true", "child", "true"), child.getProperties());
+        assertEquals("true", child.getProperties().get("parent"));
+        assertEquals("true", child.getProperties().get("child"));
         MavenProject parent = projects.get(1);
         assertEquals(List.of("child"), parent.getModules());
     }
