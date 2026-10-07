@@ -22,6 +22,8 @@ CAUTION: the extension requires Maven 3.10 or later now
   * update junit 4 to 5
   * replace plexus-component-metadata plugin with sisu-maven-plugin
 
+* update parent 1.7.0 to 1.8.0
+
 
 ### 4.0.1 (2026-01-14)
 
