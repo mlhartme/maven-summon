@@ -7,7 +7,9 @@
   *  settings can define repositories outside of profiles
 
 
-### 4.1.0 (pending) 
+### 5.0.0 (2026-10-07) 
+
+CAUTION: the extension requires Maven 3.10 or later now
 
 * switched to maven resolver 2 to fix extension to work with Maven 3.10
   * update maven resolver 1.9.25 to 2.0.24; this fixes the extension to work with Maven 3.10
