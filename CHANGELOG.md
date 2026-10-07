@@ -2,10 +2,25 @@
 
 ### TODO
 
-* dump compat dependency when Maven's (Dwfault)ProjectBuilderRequest removed ArtifactRepository from it's ProjectBuilderingRequest.
-* fix plexus-component-metadata plugin used to build extension module
+* dump compat dependency when Maven's (Default)ProjectBuilderRequest removed ArtifactRepository from it's ProjectBuilderingRequest.
 * support for Maven 4
   *  settings can define repositories outside of profiles
+
+
+### 5.0.0 (2026-10-07) 
+
+CAUTION: the extension requires Maven 3.10 or later now
+
+* switched to maven resolver 2 to fix extension to work with Maven 3.10
+  * update maven resolver 1.9.25 to 2.0.24; this fixes the extension to work with Maven 3.10
+  * update maven 3.9.12 to 3.10.0
+  * replaced maven-resolver-transport-http to maven-resolver-transport-apache
+  * update plexus-classworlds 2.9.0 to 2.12.1
+  * update plexus-component-annotations 2.1.0 to 2.2.0
+
+* other changes
+  * update junit 4 to 5
+  * replace plexus-component-metadata plugin with sisu-maven-plugin
 
 
 ### 4.0.1 (2026-01-14)

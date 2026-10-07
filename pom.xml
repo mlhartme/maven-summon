@@ -14,12 +14,12 @@
 
   <groupId>net.oneandone.maven.summon</groupId>
   <artifactId>parent</artifactId>
-  <version>4.0.2-SNAPSHOT</version>
+  <version>5.0.0-SNAPSHOT</version>
 
   <properties>
-    <mavenVersion>3.9.12</mavenVersion>
-    <resolverVersion>1.9.25</resolverVersion>
-    <sisuPlexusVersion>0.9.0.M4</sisuPlexusVersion>
+    <mavenVersion>3.10.0</mavenVersion>
+    <resolverVersion>2.0.24</resolverVersion>
+    <sisuPlexusVersion>1.1.0</sisuPlexusVersion>
   </properties>
 
   <developers>

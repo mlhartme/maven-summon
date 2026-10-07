@@ -4,32 +4,32 @@
   <parent>
     <groupId>net.oneandone.maven.summon</groupId>
     <artifactId>parent</artifactId>
-    <version>4.0.2-SNAPSHOT</version>
+    <version>5.0.0-SNAPSHOT</version>
   </parent>
 
   <name>Maven Summon API</name>
 
   <groupId>net.oneandone.maven.summon</groupId>
   <artifactId>api</artifactId>
-  <version>4.0.2-SNAPSHOT</version>
+  <version>5.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <dependencies>
     <dependency>
       <groupId>net.oneandone.maven.summon</groupId>
       <artifactId>extension</artifactId>
-      <version>4.0.2-SNAPSHOT</version>
+      <version>5.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-classworlds</artifactId>
-      <version>2.9.0</version>
+      <version>2.12.1</version>
     </dependency>
 
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-component-annotations</artifactId>
-      <version>2.1.0</version>
+      <version>2.2.0</version>
     </dependency>
     <dependency>
       <groupId>javax.inject</groupId>
@@ -102,7 +102,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.maven.resolver</groupId>
-      <artifactId>maven-resolver-transport-http</artifactId>
+      <artifactId>maven-resolver-transport-apache</artifactId>
       <version>${resolverVersion}</version>
     </dependency>
 
@@ -121,15 +121,15 @@
 
     <!-- test -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13.1</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.12.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
-      <version>1.7.36</version>
+      <version>2.0.19</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

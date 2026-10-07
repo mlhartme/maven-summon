@@ -21,10 +21,12 @@ import org.apache.maven.model.Repository;
 import org.apache.maven.project.DefaultProjectBuildingHelper;
 import org.apache.maven.project.ProjectBuildingHelper;
 import org.apache.maven.project.ProjectBuildingRequest;
-import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.logging.Logger;
+import org.eclipse.sisu.Typed;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Field;
+import javax.inject.Named;
+import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,38 +41,23 @@ import java.util.List;
  * distinguished when deploying, and they share the same local repository, so it's likely possible
  * to sneak plugin artifacts in by first resolving a normal artifact.
  */
-@Component(role = ProjectBuildingHelper.class)
+@Named("default")
+@Singleton
+@Typed(ProjectBuildingHelper.class)
 public class PomRepositoryBlocker extends DefaultProjectBuildingHelper {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PomRepositoryBlocker.class);
+
     private final String logPrefix;
     private Restriction allowUrls;
+
     public PomRepositoryBlocker() {
         this.logPrefix = getClass().getSimpleName() + ": ";
         this.allowUrls = new Restriction().allowProperty(getClass().getName() + ":allow");
+        LOGGER.info("{}created, allow {}", logPrefix, allowUrls);
     }
 
     public Restriction allowUrls() {
         return allowUrls;
-    }
-
-    // TODO: I'm unable to get the logger injected properly ...
-    private Logger lazyLogger;
-    private Logger logger() {
-        if (lazyLogger == null) {
-            Field field;
-            try {
-                field = getClass().getSuperclass().getDeclaredField("logger");
-            } catch (NoSuchFieldException e) {
-                throw new IllegalStateException(e);
-            }
-            field.setAccessible(true);
-            try {
-                lazyLogger = (Logger) field.get(this);
-            } catch (IllegalAccessException e) {
-                throw new IllegalStateException(e);
-            }
-            lazyLogger.info(logPrefix + "created, allow " + allowUrls);
-        }
-        return lazyLogger;
     }
 
     /**
@@ -94,12 +81,12 @@ public class PomRepositoryBlocker extends DefaultProjectBuildingHelper {
         for (var repo : origResult) {
             if (containsUrl(externalRepositories, repo.getUrl())) {
                 filtered.add(repo);
-                logger().info(logPrefix + "external repository - ok: " + repo.getUrl());
+                LOGGER.info("{}external repository - ok: {}", logPrefix, repo.getUrl());
             } else if (allowUrls.isAllowed(repo.getUrl())) {
                 filtered.add(repo);
-                logger().info(logPrefix + "pom repository allowed: " + repo.getUrl());
+                LOGGER.info("{}pom repository allowed: {}", logPrefix, repo.getUrl());
             } else {
-                logger().warn(logPrefix + "pom repository blocked: " + repo.getUrl());
+                LOGGER.warn("{}pom repository blocked: {}", logPrefix, repo.getUrl());
             }
         }
         return filtered;
